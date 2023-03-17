@@ -1,30 +1,39 @@
 <?php
 
-function birthdayCountdown(string $date){
+function birthdayCountdown(string $date)
+{
 
     $dateFormat = 'd-m-Y';
     $birthday = DateTime::createFromFormat($dateFormat, $date);
-    if(!$birthday || $birthday->format($dateFormat) !== $date){
+    if (!$birthday || $birthday->format($dateFormat) !== $date) {
         echo "The date is incorrect";
         return die();
     }
 
-    $dateTodaySplit = explode('-', date('d-m-Y'));
-    $birthdaySplit = explode('-', $date);
-    if($dateTodaySplit[2] > $birthdaySplit[2] || ($dateTodaySplit[2] === $birthdaySplit[2] &&
-            $dateTodaySplit[1] > $birthdaySplit[1]) || ($dateTodaySplit[2] === $birthdaySplit[2] &&
-            $dateTodaySplit[1] === $birthdaySplit[1] && $dateTodaySplit[0] > $birthdaySplit[0])){
-        echo 'Your birthday has passed';
-        return die();
+    $dateToday = new DateTime(date($dateFormat));
+
+    if ($dateToday < $birthday) {
+        throw new Exception("You are not born yet");
     }
 
-    $dateToday = new DateTime(date('d-m-Y'));
-    $days = $birthday->diff($dateToday);
+    $dateModify = substr($date, 0, 5);
 
-    return $days->days;
+    $newDateFormat = 'd-m';
+    $birthdayUpdate = DateTime::createFromFormat($newDateFormat, $dateModify);
+
+    if ($dateToday > $birthdayUpdate) {
+
+        $birthdayUpdate = $birthdayUpdate->modify('+1 year');
+
+    }
+
+    $dateToday = new DateTime(date($dateFormat));
+
+    return $birthdayUpdate->diff($dateToday)->days;
+
 }
 
-print birthdayCountdown('13-12-2034');
+echo birthdayCountdown('18-04-2022');
 
 
 

@@ -86,11 +86,6 @@ class AStar implements PathFinder
         return $this->end;
     }
 
-    public function getPath(): ?array
-    {
-        return $this->path;
-    }
-
     public function findDistanceToEnd(Point $point): int
     {
         return (abs($point->getRow() - $this->getEndingPoint()->getRow())

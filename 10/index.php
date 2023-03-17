@@ -2,73 +2,80 @@
 
 class MyCalculator
 {
-    protected $a, $b, $result;
+    protected float $a, $b, $result;
 
-    public function __construct($a, $b)
+    public function __construct(float $a, float $b)
     {
         $this->a = $a;
         $this->b = $b;
     }
 
-    public function add()
+    public function add(): static
     {
         $this->result = $this->a + $this->b;
+
         return $this;
     }
 
-    public function subtract()
+    public function subtract(): static
     {
         $this->result = $this->a - $this->b;
+
         return $this;
     }
 
-    public function multiple()
+    public function multiple(): static
     {
         $this->result = $this->a * $this->b;
+
         return $this;
     }
 
-    public function divide()
+    public function divide(): static
     {
-        if($this->b !== 0){
-            $this->result = $this->a / $this->b;
-            return $this;
-        } else {
-            return $this->result = "Impossible to divide by zero";
-        }
+        $this->result = $this->a / $this->b;
+
+        return $this;
     }
 
-    public function addBy($c): string
+    public function addBy(float $c): static
     {
         $this->result = $this->result + $c;
-        return $this->result;
+
+        return $this;
     }
 
-    public function subtractBy($c): string
+    public function subtractBy(float $c): static
     {
         $this->result = $this->result - $c;
-        return $this->result;
+
+        return $this;
     }
 
-    public function multipleBy($c): string
+    public function multipleBy(float $c): static
     {
         $this->result = $this->result * $c;
-        return $this->result;
+
+        return $this;
     }
 
-    public function divideBy($c): string
+    public function divideBy(float $c): static
     {
-        if($c !== 0){
-            $this->result = $this->result / $c;
-        } else {
-            $this->result = "Impossible divide by zero";
-        }
+        $this->result = $this->result / $c;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
         return $this->result;
     }
 }
 
 $myCalc = new MyCalculator(4, 2);
-echo $myCalc->add()->addBy(7);
-echo $myCalc->add();
+echo $myCalc->add()->addBy(7)->divideBy(0);
+//echo $myCalc->add();
+
+
 
 

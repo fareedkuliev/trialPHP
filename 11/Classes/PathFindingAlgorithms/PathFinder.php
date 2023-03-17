@@ -12,11 +12,6 @@ interface PathFinder
     public function findPath(): Path;
 
     /**
-     * @return PathPoint[]|null
-     */
-    public function getPath(): ?array;
-
-    /**
      * @return PathPoint[]
      */
     public function getCheckedPathPoints(): array;
